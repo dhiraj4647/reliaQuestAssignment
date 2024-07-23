@@ -11,7 +11,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 
 import javax.annotation.PostConstruct;
@@ -234,9 +233,9 @@ public class EmployeeHelper {
      */
     public Employee createEmployee(Map<String,Object> data) {
         try{
-            UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(BASE_URL+CREATE_EMPLOYEE_RECORD);
+            String url = BASE_URL+CREATE_EMPLOYEE_RECORD;
             ResponseEntity<EmployeeCreateResponse> response = restTemplate
-                    .exchange(BASE_URL+CREATE_EMPLOYEE_RECORD, HttpMethod.POST,new HttpEntity<>(data),EmployeeCreateResponse.class);
+                    .exchange(url, HttpMethod.POST,new HttpEntity<>(data),EmployeeCreateResponse.class);
             EmployeeCreateResponse employeeCreateResponse = response.getBody();
             Employee employee = employeeCreateResponse.getData();
             saveEmployeeIntoCacheDb(employee);
